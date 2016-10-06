@@ -4,16 +4,25 @@
 //
 //  main.swift
 //  SimpleCalc
+//
+// a simple calculator app that prompts the user for operands and operations and returns the result
+// supports decimals and negative numbers
 
 import Foundation
 
 var count = 0
 var sum = 0.0
 let oper = ["+", "-", "*", "/", "%", "fact"]
-var result = 0.0
 
+// print results function depending on the type of the passed in parameter
+func printResults<T: Comparable>(result: T) {
+    print("Result: \(result)")
+}
+
+// prompts the user to start the calculation
 print("Enter an expression separated by returns:")
 var prompt1 = Double(readLine(strippingNewline: true)!)!
+var result = 0.0
 count += 1
 sum += prompt1
 
@@ -30,7 +39,6 @@ if oper.contains(prompt2) {
         }
     } else { // add, sub, mul, div, mod
         var prompt3 = Double(readLine(strippingNewline: true)!)!
-        var temp = 0.0
         switch prompt2 {
         case "+":
             result = prompt1 + prompt3
@@ -56,9 +64,13 @@ if oper.contains(prompt2) {
     if String(prompt3) == "count" {
         result = Double(count)
     } else { // avg
-        result = (sum / Double(count))
+        result = Double(sum) / Double(count)
     }
 }
 
 // prints results
-print("Result: \(result)")
+if result == floor(result) {
+    printResults(result: Int(result))
+} else {
+    printResults(result: result)
+}
